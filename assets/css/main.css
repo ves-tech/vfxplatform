@@ -139,8 +139,10 @@
     @apply bg-gray-50 dark:bg-gray-800;
   }
 
-  .platform-table-compact .platform-table .category-header td:first-child {
-    @apply bg-gray-200 dark:bg-gray-700;
+  .platform-table-compact .platform-table .category-header td {
+    position: sticky;
+    left: 0;
+    z-index: 1;
   }
 
   /* Draft badge for non-final platform years */
