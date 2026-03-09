@@ -96,6 +96,15 @@
     @apply border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden;
   }
 
+  /* Scrollbar at top variant (used on history page) */
+  .platform-table-scrollbar-top .overflow-x-auto {
+    transform: rotateX(180deg);
+  }
+
+  .platform-table-scrollbar-top .overflow-x-auto > table {
+    transform: rotateX(180deg);
+  }
+
   /* Draft badge for non-final platform years */
   .draft-badge {
     @apply ml-1 text-xs font-medium px-1.5 py-0.5 rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300 align-middle;
