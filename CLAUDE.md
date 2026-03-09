@@ -32,7 +32,7 @@ bundle exec jekyll serve --livereload
 
 ## Architecture
 
-**Data-driven content:** Platform specs live in YAML files, not code. Most updates are data edits.
+**Data-driven content:** Platform specs live in YAML files, not code. Most updates are data edits. Do NOT change the schema without explicit direction or approval since this data is also relied upon by 3rd parties.
 
 ```
 _data/
