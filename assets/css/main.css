@@ -105,6 +105,44 @@
     transform: rotateX(180deg);
   }
 
+  /* Compact table variant (used on history page) */
+  .platform-table-compact .platform-table th {
+    @apply px-2 py-2 text-sm;
+  }
+
+  .platform-table-compact .platform-table td {
+    @apply px-2 py-2 text-xs;
+  }
+
+  .platform-table-compact .platform-table .category-header td {
+    @apply text-xs py-1.5;
+  }
+
+  /* Sticky first column for compact table */
+  .platform-table-compact .platform-table th:first-child,
+  .platform-table-compact .platform-table td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+  }
+
+  .platform-table-compact .platform-table th:first-child {
+    @apply bg-blue-600 dark:bg-blue-800;
+    z-index: 2;
+  }
+
+  .platform-table-compact .platform-table td:first-child {
+    @apply bg-white dark:bg-gray-900;
+  }
+
+  .platform-table-compact .platform-table tr.row-alt td:first-child {
+    @apply bg-gray-50 dark:bg-gray-800;
+  }
+
+  .platform-table-compact .platform-table .category-header td:first-child {
+    @apply bg-gray-200 dark:bg-gray-700;
+  }
+
   /* Draft badge for non-final platform years */
   .draft-badge {
     @apply ml-1 text-xs font-medium px-1.5 py-0.5 rounded-full bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300 align-middle;

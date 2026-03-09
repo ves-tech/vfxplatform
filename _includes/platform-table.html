@@ -5,7 +5,7 @@
 
 {% assign col_count = include.years | size | plus: 1 %}
 
-<div class="platform-table-wrapper{% if include.scrollbar_top %} platform-table-scrollbar-top{% endif %}">
+<div class="platform-table-wrapper{% if include.compact %} platform-table-compact{% endif %}{% if include.scrollbar_top %} platform-table-scrollbar-top{% endif %}">
   <div class="overflow-x-auto">
     <table class="platform-table">
       <thead>
