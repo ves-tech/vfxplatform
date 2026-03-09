@@ -13,12 +13,7 @@
   description: "Ready-to-build containers implementing VFX Reference Platform compliant build environments."
   icon: "container"
 
-- title: "DCC Tool Version Compatibility"
-  url: "https://docs.google.com/spreadsheets/d/1-8VdfspUBpkYJzfKKovI-H2bZeb5Wn3cuNPsq_Ho3S8/edit?usp=sharing"
-  description: "Track major digital content creation tool version compatibility with each platform year."
-  icon: "grid"
-
 - title: "VFX Industry Build Matrix"
-  url: "https://docs.google.com/spreadsheets/d/1EwRlz5ZYObEOdBfIk8iTX5thlpTyEAfp3bxOgAfFOiU/edit?usp=sharing"
+  url: "http://vfxindustrybuildmatrix.aswf.io/"
   description: "Cross-reference of build configurations used across the VFX industry."
   icon: "matrix"

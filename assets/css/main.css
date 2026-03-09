@@ -328,7 +328,7 @@
 
   @media (min-width: 1024px) {
     .useful-links-grid > * {
-      width: calc(33.333% - 0.6667rem);
+      width: calc(50% - 0.5rem);
     }
   }
 
