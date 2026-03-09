@@ -8,6 +8,10 @@
     line-height: 1.6;
     font-feature-settings: 'cv01', 'cv02';
   }
+
+  :is(.dark) {
+    color-scheme: dark;
+  }
 }
 
 @layer components {
@@ -139,8 +143,11 @@
     @apply bg-gray-50 dark:bg-gray-800;
   }
 
-  .platform-table-compact .platform-table .category-header td:first-child {
+  .platform-table-compact .platform-table .category-header td {
     @apply bg-gray-200 dark:bg-gray-700;
+  }
+
+  .platform-table-compact .platform-table .category-header td:first-child {
     z-index: 2;
   }
 
