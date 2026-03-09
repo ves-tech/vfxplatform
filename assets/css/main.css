@@ -141,6 +141,7 @@
 
   .platform-table-compact .platform-table .category-header td:first-child {
     @apply bg-gray-200 dark:bg-gray-700;
+    z-index: 2;
   }
 
   /* Draft badge for non-final platform years */
