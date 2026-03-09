@@ -30,42 +30,42 @@ categories:
     name: Common Components
     color: gray
     items:
+      - id: cpp_standard
+        name: "C++ API/SDK"
       - id: python
         name: Python
         subtitle: "(built with ucs4 pre-3.x)"
-      - id: qt
-        name: Qt
       - id: pyqt
         name: PyQt
       - id: pyside
         name: "Qt for Python (PySide)"
-      - id: numpy
-        name: NumPy
+      - id: qt
+        name: Qt
+      - id: aces
+        name: ACES
+      - id: alembic
+        name: Alembic
+      - id: boost
+        name: Boost
+      - id: fbx
+        name: FBX
       - id: imath
         name: Imath
         first_year: 2021
+      - id: numpy
+        name: NumPy
+      - id: onemkl
+        name: "oneMKL/MKL"
+      - id: onetbb
+        name: "oneTBB/TBB"
+        min_max: true
+      - id: opencolorio
+        name: OpenColorIO
       - id: openexr
         name: OpenEXR
-      - id: ptex
-        name: Ptex
       - id: opensubdiv
         name: OpenSubdiv
       - id: openvdb
         name: OpenVDB
-      - id: alembic
-        name: Alembic
-      - id: fbx
-        name: FBX
-      - id: opencolorio
-        name: OpenColorIO
-      - id: aces
-        name: ACES
-      - id: boost
-        name: Boost
-      - id: onetbb
-        name: "oneTBB/TBB"
-        min_max: true
-      - id: onemkl
-        name: "oneMKL/MKL"
-      - id: cpp_standard
-        name: "C++ API/SDK"
+      - id: ptex
+        name: Ptex
