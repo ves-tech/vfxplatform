@@ -282,6 +282,19 @@
     @apply bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/30 rounded-lg p-5;
   }
 
+  /* View toggle buttons */
+  .view-toggle-btn {
+    @apply text-gray-500 dark:text-gray-400 bg-transparent cursor-pointer;
+  }
+
+  .view-toggle-btn:hover {
+    @apply bg-gray-100 dark:bg-gray-700;
+  }
+
+  .view-toggle-btn.active {
+    @apply bg-blue-600 dark:bg-blue-700 text-white;
+  }
+
   /* Accordion styles */
   .accordion-item {
     @apply border border-gray-200 dark:border-gray-700 rounded-lg mb-2;
