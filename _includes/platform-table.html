@@ -5,7 +5,7 @@
 
 {% assign col_count = include.years | size | plus: 1 %}
 
-<div class="platform-table-wrapper">
+<div class="platform-table-wrapper{% if include.compact %} platform-table-compact{% endif %}{% if include.scrollbar_top %} platform-table-scrollbar-top{% endif %}">
   <div class="overflow-x-auto">
     <table class="platform-table">
       <thead>
@@ -27,10 +27,18 @@
         {% for category in site.data.components.categories %}
           <!-- Category header row -->
           <tr class="category-header" data-category="{{ category.id }}" role="button" tabindex="0" aria-expanded="true">
-            <td colspan="{{ col_count }}">
-              <span class="category-chevron">&#9662;</span>
-              {{ category.name }}
-            </td>
+            {% if include.compact %}
+              <td>
+                <span class="category-chevron">&#9662;</span>
+                {{ category.name }}
+              </td>
+              {% for year in include.years %}<td></td>{% endfor %}
+            {% else %}
+              <td colspan="{{ col_count }}">
+                <span class="category-chevron">&#9662;</span>
+                {{ category.name }}
+              </td>
+            {% endif %}
           </tr>
 
           {% for item in category.items %}

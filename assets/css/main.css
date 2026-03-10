@@ -8,6 +8,10 @@
     line-height: 1.6;
     font-feature-settings: 'cv01', 'cv02';
   }
+
+  :is(.dark) {
+    color-scheme: dark;
+  }
 }
 
 @layer components {
@@ -94,6 +98,57 @@
 
   .platform-table-wrapper {
     @apply border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden;
+  }
+
+  /* Scrollbar at top variant (used on history page) */
+  .platform-table-scrollbar-top .overflow-x-auto {
+    transform: rotateX(180deg);
+  }
+
+  .platform-table-scrollbar-top .overflow-x-auto > table {
+    transform: rotateX(180deg);
+  }
+
+  /* Compact table variant (used on history page) */
+  .platform-table-compact .platform-table th {
+    @apply px-2 py-2 text-sm;
+  }
+
+  .platform-table-compact .platform-table td {
+    @apply px-2 py-2 text-xs;
+  }
+
+  .platform-table-compact .platform-table .category-header td {
+    @apply text-xs py-1.5;
+  }
+
+  /* Sticky first column for compact table */
+  .platform-table-compact .platform-table th:first-child,
+  .platform-table-compact .platform-table td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+  }
+
+  .platform-table-compact .platform-table th:first-child {
+    @apply bg-blue-600 dark:bg-blue-800;
+    z-index: 2;
+  }
+
+  .platform-table-compact .platform-table td:first-child {
+    @apply bg-white dark:bg-gray-900;
+  }
+
+  .platform-table-compact .platform-table tr.row-alt td:first-child {
+    @apply bg-gray-50 dark:bg-gray-800;
+  }
+
+  .platform-table-compact .platform-table .category-header td {
+    @apply bg-gray-200 dark:bg-gray-700;
+  }
+
+  .platform-table-compact .platform-table .category-header td:first-child {
+    z-index: 2;
   }
 
   /* Draft badge for non-final platform years */
@@ -273,13 +328,26 @@
 
   @media (min-width: 1024px) {
     .useful-links-grid > * {
-      width: calc(33.333% - 0.6667rem);
+      width: calc(50% - 0.5rem);
     }
   }
 
   /* Info box */
   .info-box {
     @apply bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/30 rounded-lg p-5;
+  }
+
+  /* View toggle buttons */
+  .view-toggle-btn {
+    @apply text-gray-500 dark:text-gray-400 bg-transparent cursor-pointer;
+  }
+
+  .view-toggle-btn:hover {
+    @apply bg-gray-100 dark:bg-gray-700;
+  }
+
+  .view-toggle-btn.active {
+    @apply bg-blue-600 dark:bg-blue-700 text-white;
   }
 
   /* Accordion styles */
