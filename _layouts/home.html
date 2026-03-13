@@ -4,9 +4,10 @@
   {% include head.html %}
 </head>
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased min-h-screen flex flex-col">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-md focus:text-sm focus:font-medium">Skip to content</a>
   {% include header.html %}
 
-  <main class="flex-1">
+  <main id="main-content" class="flex-1">
     {{ content }}
   </main>
 

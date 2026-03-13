@@ -14,6 +14,8 @@
     cardView.classList.toggle('hidden', isTable);
     btnTable.classList.toggle('active', isTable);
     btnCards.classList.toggle('active', !isTable);
+    btnTable.setAttribute('aria-pressed', isTable ? 'true' : 'false');
+    btnCards.setAttribute('aria-pressed', isTable ? 'false' : 'true');
     try { localStorage.setItem(STORAGE_KEY, view); } catch (e) {}
   }
 

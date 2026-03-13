@@ -326,12 +326,6 @@
     }
   }
 
-  @media (min-width: 1024px) {
-    .useful-links-grid > * {
-      width: calc(50% - 0.5rem);
-    }
-  }
-
   /* Info box */
   .info-box {
     @apply bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/30 rounded-lg p-5;

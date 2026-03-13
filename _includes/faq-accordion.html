@@ -10,7 +10,6 @@
       class="accordion-header rounded-t-lg {% unless forloop.last %}rounded-b-lg{% endunless %}"
       aria-expanded="false"
       aria-controls="faq-panel-{{ forloop.index }}"
-      onclick="this.parentElement.classList.toggle('open'); this.nextElementSibling.classList.toggle('hidden'); this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true')"
     >
       <span class="flex items-center gap-2">
         <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
