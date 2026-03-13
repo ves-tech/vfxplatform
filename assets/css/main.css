@@ -9,8 +9,70 @@
     font-feature-settings: 'cv01', 'cv02';
   }
 
+  /* Smooth dark mode transition — scoped to key surfaces rather than all elements */
+  body,
+  nav,
+  main,
+  footer,
+  section,
+  .platform-table-wrapper,
+  .note-popover,
+  .note-bottom-sheet,
+  .accordion-item,
+  .year-card,
+  .note-card,
+  .info-box,
+  .support-card {
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease;
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Semantic design tokens — centralizes light/dark color pairings */
+  :root {
+    --color-surface: 255 255 255;           /* white */
+    --color-surface-alt: 249 250 251;       /* gray-50 */
+    --color-surface-raised: 255 255 255;    /* white */
+    --color-border: 229 231 235;            /* gray-200 */
+    --color-border-strong: 209 213 219;     /* gray-300 */
+    --color-text-heading: 17 24 39;         /* gray-900 */
+    --color-text-body: 75 85 99;            /* gray-600 */
+    --color-text-muted: 107 114 128;        /* gray-500 */
+    --color-primary: 37 99 235;             /* blue-600 */
+    --color-primary-hover: 29 78 216;       /* blue-700 */
+    --color-primary-subtle: 239 246 255;    /* blue-50 */
+    --color-primary-text: 37 99 235;        /* blue-600 */
+    --color-accent-bg: 255 251 235;         /* amber-50 */
+
+    /* Animation timing */
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
   :is(.dark) {
     color-scheme: dark;
+    --color-surface: 17 24 39;              /* gray-900 */
+    --color-surface-alt: 17 24 39;          /* gray-900 */
+    --color-surface-raised: 31 41 55;       /* gray-800 */
+    --color-border: 55 65 81;              /* gray-700 */
+    --color-border-strong: 75 85 99;        /* gray-600 */
+    --color-text-heading: 243 244 246;      /* gray-100 */
+    --color-text-body: 209 213 219;         /* gray-300 */
+    --color-text-muted: 156 163 175;        /* gray-400 */
+    --color-primary: 37 99 235;             /* blue-600 */
+    --color-primary-hover: 29 78 216;       /* blue-700 */
+    --color-primary-subtle: 30 58 138;      /* blue-900 */
+    --color-primary-text: 96 165 250;       /* blue-400 */
+    --color-accent-bg: 120 53 15;           /* amber-900 */
   }
 }
 
@@ -43,13 +105,9 @@
 
   .platform-table td {
     @apply px-4 py-3 text-center;
-    border-bottom: 1px solid theme('colors.gray.100');
-    border-right: 1px solid theme('colors.gray.200');
-  }
-
-  :is(.dark) .platform-table td {
-    border-bottom-color: theme('colors.gray.800');
-    border-right-color: theme('colors.gray.700/50');
+    border-bottom: 1px solid rgb(var(--color-border) / 0.5);
+    border-right: 1px solid rgb(var(--color-border));
+    transition: background-color 0.1s ease;
   }
 
   .platform-table td:last-child {
@@ -58,6 +116,11 @@
 
   .platform-table td:first-child {
     @apply text-left;
+  }
+
+  /* Subtle row hover for scanning — excluded on category headers */
+  .platform-table tr:not(.category-header):hover td {
+    background-color: rgb(var(--color-primary) / 0.04);
   }
 
   .platform-table td.version-changed {
@@ -69,7 +132,9 @@
   }
 
   .platform-table .category-header td {
-    @apply font-bold text-left text-sm tracking-wider text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-gray-700/70 border-b border-gray-300 dark:border-gray-600 py-2;
+    @apply font-bold text-left text-sm tracking-wider bg-gray-200 dark:bg-gray-700/70 py-2;
+    color: rgb(var(--color-text-heading));
+    border-bottom: 1px solid rgb(var(--color-border-strong));
   }
 
   .platform-table .category-header {
@@ -83,7 +148,7 @@
 
   .category-chevron {
     display: inline-block;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
     font-size: 0.75em;
     margin-right: 0.25rem;
   }
@@ -92,12 +157,41 @@
     transform: rotate(-90deg);
   }
 
+  /* Animated category row collapse — fade + slide for smooth feel */
+  .platform-table [data-category-row] {
+    transition: opacity 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
   .category-row-hidden {
     display: none;
   }
 
   .platform-table-wrapper {
-    @apply border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden;
+    border: 1px solid rgb(var(--color-border));
+    @apply rounded-lg overflow-hidden;
+    position: relative;
+  }
+
+  /* Mobile scroll affordance — gradient fade on right edge hints at scrollable content */
+  @media (max-width: 767px) {
+    .platform-table-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 24px;
+      background: linear-gradient(to right, transparent, rgb(var(--color-surface) / 0.6));
+      pointer-events: none;
+      z-index: 3;
+      border-radius: 0 0.5rem 0.5rem 0;
+      transition: opacity 0.2s ease;
+    }
+
+    /* Increase category header touch target on mobile */
+    .platform-table .category-header td {
+      @apply py-3;
+    }
   }
 
   /* Scrollbar at top variant (used on history page) */
@@ -136,11 +230,11 @@
   }
 
   .platform-table-compact .platform-table td:first-child {
-    @apply bg-white dark:bg-gray-900;
+    background-color: rgb(var(--color-surface));
   }
 
   .platform-table-compact .platform-table tr.row-alt td:first-child {
-    @apply bg-gray-50 dark:bg-gray-800;
+    background-color: rgb(var(--color-surface-alt));
   }
 
   .platform-table-compact .platform-table .category-header td {
@@ -149,6 +243,17 @@
 
   .platform-table-compact .platform-table .category-header td:first-child {
     z-index: 2;
+  }
+
+  /* Subtle shadow on sticky column edge to show content scrolling beneath */
+  .platform-table-compact .platform-table th:first-child,
+  .platform-table-compact .platform-table td:first-child {
+    box-shadow: 2px 0 4px rgb(0 0 0 / 0.04);
+  }
+
+  :is(.dark) .platform-table-compact .platform-table th:first-child,
+  :is(.dark) .platform-table-compact .platform-table td:first-child {
+    box-shadow: 2px 0 4px rgb(0 0 0 / 0.15);
   }
 
   /* Draft badge for non-final platform years */
@@ -169,17 +274,25 @@
     @apply bg-red-100 dark:bg-red-900/30;
   }
 
-  /* Filter toggle buttons */
+  /* Filter toggle buttons — use border/background instead of opacity for better readability */
   .diff-filter {
-    @apply opacity-40 select-none;
+    @apply select-none cursor-pointer transition-all duration-150;
+    color: rgb(var(--color-text-muted));
+    border: 1px solid rgb(var(--color-border));
+    background-color: transparent;
   }
 
   .diff-filter:hover {
-    @apply opacity-70;
+    background-color: rgb(var(--color-surface-alt));
+    border-color: rgb(var(--color-border-strong));
+    color: rgb(var(--color-text-body));
   }
 
   .diff-filter.active {
-    @apply opacity-100 ring-1 ring-gray-400 dark:ring-gray-500 bg-gray-50 dark:bg-gray-800;
+    background-color: rgb(var(--color-surface-alt));
+    border-color: rgb(var(--color-border-strong));
+    color: rgb(var(--color-text-heading));
+    @apply ring-1 ring-gray-400 dark:ring-gray-500;
   }
 
   /* Ensure component name column stays left-aligned in comparison table (rowspan shifts td:first-child) */
@@ -189,7 +302,8 @@
 
   /* Year cards for history page */
   .year-card {
-    @apply border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden;
+    border: 1px solid rgb(var(--color-border));
+    @apply rounded-lg overflow-hidden;
   }
 
   .year-card-header {
@@ -222,16 +336,20 @@
 
   /* Note cards */
   .note-card {
-    @apply border border-gray-200 dark:border-gray-700 rounded-lg p-5 mb-6;
+    border: 1px solid rgb(var(--color-border));
+    @apply rounded-lg p-5 mb-6;
   }
 
   .note-card-title {
-    @apply font-semibold text-gray-900 dark:text-gray-100 mb-2;
+    color: rgb(var(--color-text-heading));
+    @apply font-semibold mb-2;
   }
 
   /* Note popover (desktop) */
   .note-popover {
-    @apply absolute z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl p-5 max-w-[400px] max-h-[60vh] overflow-y-auto;
+    @apply absolute z-50 rounded-lg shadow-xl p-5 max-w-[400px] max-h-[60vh] overflow-y-auto;
+    background-color: rgb(var(--color-surface));
+    border: 1px solid rgb(var(--color-border));
     animation: note-fade-in 0.15s ease-out;
   }
 
@@ -243,26 +361,14 @@
     top: -6px;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-bottom: 6px solid theme('colors.gray.200');
-    filter: drop-shadow(0 -1px 0 theme('colors.gray.200'));
-  }
-
-  :is(.dark) .note-popover-arrow.arrow-top {
-    border-bottom-color: theme('colors.gray.700');
-    filter: drop-shadow(0 -1px 0 theme('colors.gray.700'));
+    border-bottom: 6px solid rgb(var(--color-border));
   }
 
   .note-popover-arrow.arrow-bottom {
     bottom: -6px;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-top: 6px solid theme('colors.gray.200');
-    filter: drop-shadow(0 1px 0 theme('colors.gray.200'));
-  }
-
-  :is(.dark) .note-popover-arrow.arrow-bottom {
-    border-top-color: theme('colors.gray.700');
-    filter: drop-shadow(0 1px 0 theme('colors.gray.700'));
+    border-top: 6px solid rgb(var(--color-border));
   }
 
   /* Note backdrop (mobile) */
@@ -276,7 +382,8 @@
 
   /* Note bottom sheet (mobile) */
   .note-bottom-sheet {
-    @apply fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 rounded-t-2xl shadow-2xl p-5 pt-8 max-h-[70vh] overflow-y-auto;
+    @apply fixed bottom-0 left-0 right-0 z-50 rounded-t-2xl shadow-2xl p-5 pt-8 max-h-[70vh] overflow-y-auto;
+    background-color: rgb(var(--color-surface));
     transform: translateY(100%);
     transition: transform 0.25s ease-out;
   }
@@ -287,7 +394,13 @@
 
   /* Close button for popover/sheet */
   .note-close-btn {
-    @apply absolute top-2 right-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-xl leading-none cursor-pointer bg-transparent border-none p-1;
+    @apply absolute top-2 right-3 text-xl leading-none cursor-pointer bg-transparent border-none p-1;
+    color: rgb(var(--color-text-muted));
+    transition: color 0.15s ease;
+  }
+
+  .note-close-btn:hover {
+    color: rgb(var(--color-text-body));
   }
 
   @keyframes note-fade-in {
@@ -303,7 +416,9 @@
   .section-heading::before,
   .section-heading::after {
     content: '';
-    @apply flex-1 h-px bg-gray-200 dark:bg-gray-700;
+    flex: 1;
+    height: 1px;
+    background-color: rgb(var(--color-border));
   }
 
   .section-heading h2 {
@@ -328,12 +443,15 @@
 
   /* Info box */
   .info-box {
-    @apply bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/30 rounded-lg p-5;
+    background-color: rgb(var(--color-primary-subtle) / 0.5);
+    border: 1px solid rgb(var(--color-primary-subtle));
+    @apply rounded-lg p-5;
   }
 
   /* View toggle buttons */
   .view-toggle-btn {
-    @apply text-gray-500 dark:text-gray-400 bg-transparent cursor-pointer;
+    @apply bg-transparent cursor-pointer transition-colors duration-150;
+    color: rgb(var(--color-text-muted));
   }
 
   .view-toggle-btn:hover {
@@ -346,15 +464,46 @@
 
   /* Accordion styles */
   .accordion-item {
-    @apply border border-gray-200 dark:border-gray-700 rounded-lg mb-2;
+    border: 1px solid rgb(var(--color-border));
+    @apply rounded-lg mb-2;
   }
 
   .accordion-header {
-    @apply w-full px-4 py-3 text-left font-medium flex justify-between items-center cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors;
+    @apply w-full px-4 py-3 text-left font-medium flex justify-between items-center cursor-pointer transition-colors duration-150;
+  }
+
+  .accordion-header:hover {
+    background-color: rgb(var(--color-surface-alt));
+  }
+
+  /* Smooth accordion expand/collapse using CSS grid */
+  .accordion-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .accordion-panel > .accordion-content {
+    overflow: hidden;
+  }
+
+  .accordion-item.open .accordion-panel {
+    grid-template-rows: 1fr;
   }
 
   .accordion-content {
     @apply px-4 pb-4 prose dark:prose-invert max-w-none;
+  }
+
+  /* When closed, remove padding so grid collapse works */
+  .accordion-item:not(.open) .accordion-content {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .accordion-chevron {
+    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+    flex-shrink: 0;
   }
 
   .accordion-item.open .accordion-chevron {
@@ -364,5 +513,57 @@
   .accordion-item.open .accordion-header {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+  }
+
+  /* --- Delight layer: subtle refinements for premium feel --- */
+
+  /* CTA buttons — satisfying press feedback */
+  a[class*="rounded-full"][class*="bg-blue-600"],
+  a[class*="rounded-full"][class*="bg-white"] {
+    transition: transform 0.1s var(--ease-out-quart), box-shadow 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+  }
+
+  a[class*="rounded-full"][class*="bg-blue-600"]:hover {
+    box-shadow: 0 4px 12px rgb(var(--color-primary) / 0.3);
+  }
+
+  a[class*="rounded-full"][class*="bg-blue-600"]:active,
+  a[class*="rounded-full"][class*="bg-white"]:active {
+    transform: translateY(1px);
+  }
+
+  /* Useful links cards — refined hover lift */
+  .useful-links-grid > a {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s var(--ease-out-quart);
+  }
+
+  .useful-links-grid > a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 0.06);
+  }
+
+  :is(.dark) .useful-links-grid > a:hover {
+    box-shadow: 0 4px 16px rgb(0 0 0 / 0.2);
+  }
+
+  /* Support guidance cards — subtle hover border */
+  .support-card {
+    transition: border-color 0.2s ease;
+  }
+
+  .support-card:hover {
+    border-color: rgb(var(--color-border-strong));
+  }
+
+  /* Refined focus ring for keyboard navigation */
+  :focus-visible {
+    outline: 2px solid rgb(var(--color-primary-text));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Remove default outlines — only :focus-visible shows the ring */
+  :focus:not(:focus-visible) {
+    outline: none;
   }
 }

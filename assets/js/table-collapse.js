@@ -1,6 +1,7 @@
 // Collapsible table category sections with localStorage persistence
 (function() {
-  const STORAGE_KEY = 'tableCollapsed';
+  var STORAGE_KEY = 'tableCollapsed';
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function getCollapsedState() {
     try {
@@ -18,34 +19,57 @@
     }
   }
 
-  function setCategory(categoryId, collapsed) {
-    const headers = document.querySelectorAll('.category-header[data-category="' + categoryId + '"]');
-    const rows = document.querySelectorAll('[data-category-row="' + categoryId + '"]');
+  function hideRows(rows) {
+    rows.forEach(function(el) {
+      el.classList.add('category-row-hidden');
+    });
+  }
+
+  function setCategory(categoryId, collapsed, animate) {
+    var headers = document.querySelectorAll('.category-header[data-category="' + categoryId + '"]');
+    var rows = document.querySelectorAll('[data-category-row="' + categoryId + '"]');
 
     headers.forEach(function(el) {
       el.classList.toggle('collapsed', collapsed);
       el.setAttribute('aria-expanded', String(!collapsed));
     });
 
-    rows.forEach(function(el) {
-      el.classList.toggle('category-row-hidden', collapsed);
-    });
+    if (collapsed) {
+      if (animate && !prefersReducedMotion) {
+        // Fade out then hide
+        rows.forEach(function(el) { el.style.opacity = '0'; });
+        setTimeout(function() { hideRows(rows); }, 150);
+      } else {
+        hideRows(rows);
+      }
+    } else {
+      // Show then fade in
+      rows.forEach(function(el) {
+        el.classList.remove('category-row-hidden');
+        if (animate && !prefersReducedMotion) {
+          el.style.opacity = '0';
+          // Force reflow so transition triggers
+          el.offsetHeight;
+          el.style.opacity = '';
+        }
+      });
+    }
   }
 
   function toggleCategory(categoryId) {
-    const state = getCollapsedState();
-    const collapsed = !state[categoryId];
+    var state = getCollapsedState();
+    var collapsed = !state[categoryId];
     state[categoryId] = collapsed;
     if (!collapsed) delete state[categoryId];
     saveCollapsedState(state);
-    setCategory(categoryId, collapsed);
+    setCategory(categoryId, collapsed, true);
   }
 
-  // Apply saved state on load
-  const state = getCollapsedState();
+  // Apply saved state on load (no animation)
+  var state = getCollapsedState();
   Object.keys(state).forEach(function(categoryId) {
     if (state[categoryId]) {
-      setCategory(categoryId, true);
+      setCategory(categoryId, true, false);
     }
   });
 

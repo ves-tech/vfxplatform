@@ -8,7 +8,7 @@
 
       <!-- Mobile menu button -->
       <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white focus:outline-none" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
@@ -27,7 +27,7 @@
     </div>
 
     <!-- Mobile navigation -->
-    <div id="mobile-menu" class="hidden md:hidden pb-4">
+    <div id="mobile-menu" class="md:hidden pb-4 overflow-hidden transition-all duration-200 ease-out" style="max-height: 0; opacity: 0;">
       {% for item in site.data.navigation.main %}
       <a href="{{ item.url | relative_url }}" class="block px-3 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md">
         {{ item.title }}
@@ -44,21 +44,26 @@
   (function() {
     var btn = document.getElementById('mobile-menu-btn');
     var menu = document.getElementById('mobile-menu');
+    var isOpen = false;
 
-    function toggleMenu() {
-      menu.classList.toggle('hidden');
-      var expanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', !expanded);
+    function openMenu() {
+      isOpen = true;
+      btn.setAttribute('aria-expanded', 'true');
+      menu.style.maxHeight = menu.scrollHeight + 'px';
+      menu.style.opacity = '1';
     }
 
     function closeMenu() {
-      if (!menu.classList.contains('hidden')) {
-        menu.classList.add('hidden');
-        btn.setAttribute('aria-expanded', 'false');
-      }
+      if (!isOpen) return;
+      isOpen = false;
+      btn.setAttribute('aria-expanded', 'false');
+      menu.style.maxHeight = '0';
+      menu.style.opacity = '0';
     }
 
-    btn.addEventListener('click', toggleMenu);
+    btn.addEventListener('click', function() {
+      isOpen ? closeMenu() : openMenu();
+    });
 
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeMenu();
