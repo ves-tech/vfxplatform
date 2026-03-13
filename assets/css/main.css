@@ -118,9 +118,9 @@
     @apply text-left;
   }
 
-  /* Subtle row hover for scanning — excluded on category headers */
-  .platform-table tr:not(.category-header):hover td {
-    background-color: rgb(var(--color-primary) / 0.04);
+  /* Subtle row hover for scanning — excluded on category headers and rowspan cells */
+  .platform-table tr:not(.category-header):hover td:not([rowspan]) {
+    background-color: rgb(var(--color-primary) / 0.07);
   }
 
   .platform-table td.version-changed {
