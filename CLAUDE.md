@@ -91,3 +91,37 @@ Each `_data/platforms/CY[YEAR].yml` contains:
 ## Deployment
 
 Push to main branch triggers GitHub Actions (`.github/workflows/deploy.yml`) which builds and deploys to GitHub Pages automatically. A separate `.github/workflows/deploy-staging.yml` workflow deploys the staging branch for preview.
+
+## Design Context
+
+### Users
+VFX and animation industry professionals — pipeline TDs, software engineers, studio CTOs, and open-source library maintainers. They visit to check version requirements for their builds, verify compatibility, and plan upgrades. They want to find specific version numbers quickly and move on. Many are deeply technical and value precision over polish.
+
+### Brand Personality
+**Authoritative, precise, trustworthy.** This is an industry standard reference — the definitive source of truth for VFX software compatibility. The design should communicate reliability and institutional credibility without being stuffy.
+
+### Emotional Goals
+- **Confidence & trust:** Users should immediately feel this is the canonical, well-maintained reference
+- **Efficiency & focus:** Information should be scannable and fast to find — no friction between the user and the data they need
+
+### Aesthetic Direction
+**Minimal & refined.** The current conservative, information-dense design is appropriate for this audience. Enhancements should add subtle polish — better spacing, purposeful micro-interactions, and consistency — to make it feel premium without becoming flashy. Think "well-typeset technical document" not "marketing site."
+
+### Design Principles
+1. **Data first** — Every design decision should make version data easier to find, read, and compare. Decoration must never compete with content.
+2. **Quiet confidence** — Use restraint. Subtle animations, muted transitions, and precise spacing convey quality better than bold effects.
+3. **Consistency over novelty** — Unify existing patterns rather than introducing new ones. The same spacing, border radii, and color usage everywhere.
+4. **Respect the professional** — No unnecessary tooltips, onboarding flows, or explanatory UI. Users are experts who know what they're looking for.
+5. **Light and dark parity** — Both themes should feel equally considered and polished, not like one is an afterthought.
+
+### Color Palette (existing)
+- **Primary:** Blue-600 (`#2563EB`) / Dark: Blue-400 (`#60A5FA`)
+- **Surface:** White / Dark: Gray-900 (`#111827`)
+- **Text:** Gray-900 / Dark: Gray-100
+- **Borders:** Gray-200 / Dark: Gray-700
+- **Accent (changes):** Amber-50 / Dark: Amber-900/30
+- **Footer:** Gray-900 / Dark: Gray-950
+
+### Typography
+- **Sans:** Inter (with OpenType features cv01, cv02 enabled)
+- **Mono:** JetBrains Mono / Fira Code

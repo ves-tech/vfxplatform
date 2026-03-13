@@ -1,10 +1,17 @@
 // Component detail page
 (function() {
-  const titleEl = document.getElementById('component-title');
-  const subtitleEl = document.getElementById('component-subtitle');
-  const contentEl = document.getElementById('component-content');
+  var titleEl = document.getElementById('component-title');
+  var subtitleEl = document.getElementById('component-subtitle');
+  var contentEl = document.getElementById('component-content');
 
   if (!titleEl || !subtitleEl || !contentEl) return;
+
+  // HTML entity escaping for safe string interpolation
+  function esc(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
 
   if (typeof platformData === 'undefined' || typeof componentMeta === 'undefined') {
     contentEl.innerHTML = '<div class="p-4 text-red-600">Error: Platform data not loaded.</div>';
@@ -127,13 +134,13 @@
 
     componentMeta.categories.forEach(function(category) {
       html += '<div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">';
-      html += '<div class="bg-gray-100 dark:bg-gray-800 px-4 py-3 font-semibold">' + category.name + '</div>';
+      html += '<div class="bg-gray-100 dark:bg-gray-800 px-4 py-3 font-semibold">' + esc(category.name) + '</div>';
       html += '<ul class="divide-y divide-gray-100 dark:divide-gray-800">';
 
       category.items.forEach(function(item) {
-        html += '<li><a href="component.html?id=' + item.id + '" class="block px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 text-blue-600 dark:text-blue-400 hover:underline">';
-        html += item.name;
-        if (item.subtitle) html += ' <span class="text-sm text-gray-500 dark:text-gray-400">' + item.subtitle + '</span>';
+        html += '<li><a href="component.html?id=' + encodeURIComponent(item.id) + '" class="block px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 text-blue-600 dark:text-blue-400 hover:underline">';
+        html += esc(item.name);
+        if (item.subtitle) html += ' <span class="text-sm text-gray-500 dark:text-gray-400">' + esc(item.subtitle) + '</span>';
         html += '</a></li>';
       });
 

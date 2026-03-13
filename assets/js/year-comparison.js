@@ -1,10 +1,17 @@
 // Year comparison tool
 (function() {
-  const year1Select = document.getElementById('year1-select');
-  const year2Select = document.getElementById('year2-select');
-  const resultsContainer = document.getElementById('comparison-results');
+  var year1Select = document.getElementById('year1-select');
+  var year2Select = document.getElementById('year2-select');
+  var resultsContainer = document.getElementById('comparison-results');
 
   if (!year1Select || !year2Select || !resultsContainer) return;
+
+  // HTML entity escaping for safe string interpolation
+  function esc(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
 
   // Check if platformData is available
   if (typeof platformData === 'undefined' || typeof componentMeta === 'undefined') {
@@ -108,19 +115,19 @@
       });
 
       filtered.forEach(function(diff) {
-        const rowClass = 'diff-' + diff.type;
-        let categoryCell = '';
+        var rowClass = 'diff-' + esc(diff.type);
+        var categoryCell = '';
 
         if (diff.category !== currentCategory) {
-          categoryCell = '<td class="category-' + diff.categoryId + ' font-semibold align-middle" rowspan="' + categoryCount[diff.category] + '">' + diff.category + '</td>';
+          categoryCell = '<td class="category-' + esc(diff.categoryId) + ' font-semibold align-middle" rowspan="' + categoryCount[diff.category] + '">' + esc(diff.category) + '</td>';
           currentCategory = diff.category;
         }
 
         html += '<tr class="' + rowClass + '">';
         html += categoryCell;
-        html += '<td class="comp-name"><a href="component.html?id=' + diff.componentId + '" class="text-blue-600 dark:text-blue-400 hover:underline">' + diff.component + '</a></td>';
-        html += '<td class="font-mono text-sm">' + diff.value1 + '</td>';
-        html += '<td class="font-mono text-sm">' + diff.value2 + '</td>';
+        html += '<td class="comp-name"><a href="component.html?id=' + encodeURIComponent(diff.componentId) + '" class="text-blue-600 dark:text-blue-400 hover:underline">' + esc(diff.component) + '</a></td>';
+        html += '<td class="font-mono text-sm">' + esc(diff.value1) + '</td>';
+        html += '<td class="font-mono text-sm">' + esc(diff.value2) + '</td>';
         html += '</tr>';
       });
     }
