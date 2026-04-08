@@ -33,8 +33,9 @@
   // Populate select dropdowns
   function populateSelects() {
     years.forEach(function(year, index) {
-      const option1 = new Option(year, year, index === 0, index === 0);
-      const option2 = new Option(year, year, index === 1, index === 1);
+      const label = platformData[year] && platformData[year].status !== 'final' ? year + ' (Draft)' : year;
+      const option1 = new Option(label, year, index === 0, index === 0);
+      const option2 = new Option(label, year, index === 1, index === 1);
       year1Select.add(option1);
       year2Select.add(option2);
     });
@@ -99,8 +100,8 @@
     let html = '<div class="platform-table-wrapper"><div class="overflow-x-auto"><table class="platform-table"><thead><tr>';
     html += '<th class="text-left">Category</th>';
     html += '<th class="text-left">Component</th>';
-    html += '<th>' + year1 + '</th>';
-    html += '<th>' + year2 + '</th>';
+    html += '<th>' + year1 + (platformData[year1] && platformData[year1].status !== 'final' ? ' <span class="draft-badge">DRAFT</span>' : '') + '</th>';
+    html += '<th>' + year2 + (platformData[year2] && platformData[year2].status !== 'final' ? ' <span class="draft-badge">DRAFT</span>' : '') + '</th>';
     html += '</tr></thead><tbody>';
 
     if (filtered.length === 0) {
