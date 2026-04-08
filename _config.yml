@@ -7,7 +7,7 @@ baseurl: ""
 
 # Platform year configuration
 current_year: 2027
-supported_years_count: 3
+supported_years_count: 4
 
 # Build settings
 markdown: kramdown
