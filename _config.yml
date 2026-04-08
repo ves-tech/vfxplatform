@@ -6,7 +6,7 @@ url: "https://vfxplatform.com"
 baseurl: ""
 
 # Platform year configuration
-current_year: 2026
+current_year: 2027
 supported_years_count: 3
 
 # Build settings
