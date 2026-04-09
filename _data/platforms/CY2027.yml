@@ -39,7 +39,7 @@ components:
   ptex:
     version: "2.5.x"
   opensubdiv:
-    version: "3.7.x"
+    version: "3.8.x"
   openvdb:
     version: "14.x"
   alembic:
