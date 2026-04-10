@@ -1,8 +1,8 @@
 updates:
-  - date: "2026-04-12"
-    display_date: "12th April 2026"
+  - date: "2026-04-10"
+    display_date: "10th April 2026"
     content: |
-      CY2027 Draft published, with a number of significant changes to XXXXXXXXXXX. We are currently soliciting feedback on this Draft so please either send to [feedback@vfxplatform.com](mailto:feedback@vfxplatform.com) or share on [vfx-platform-discuss](https://groups.google.com/g/vfx-platform-discuss).
+      CY2027 Draft published. The major change is Linux moving to glibc 2.34, which effectively mandates that everyone should be on an EL9 Linux OS (or equivalent). Most other components are unchanged, given that there were major updates the previous year with C++ and Qt. We are currently soliciting feedback on this Draft so please either send to [feedback@vfxplatform.com](mailto:feedback@vfxplatform.com) or share on [vfx-platform-discuss](https://groups.google.com/g/vfx-platform-discuss).
 
   - date: "2025-11-05"
     display_date: "5th November 2025"
