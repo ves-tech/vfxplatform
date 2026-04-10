@@ -131,6 +131,10 @@
     @apply bg-gray-50 dark:bg-gray-800/30;
   }
 
+  .platform-table tr.row-alt td.version-changed {
+    @apply bg-amber-100 dark:bg-amber-900/40;
+  }
+
   .platform-table .category-header td {
     @apply font-bold text-left text-sm tracking-wider bg-gray-200 dark:bg-gray-700/70 py-2;
     color: rgb(var(--color-text-heading));

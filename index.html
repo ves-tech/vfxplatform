@@ -5,6 +5,14 @@ description: "VFX Reference Platform - Reference Platform for VFX Software"
 ---
 
 {% assign current_year = site.current_year %}
+{% assign latest_final_year = 0 %}
+{% for platform in site.data.platforms %}
+  {% assign year_num = platform[0] | remove: "CY" | plus: 0 %}
+  {% assign year_data = platform[1] %}
+  {% if year_data.status == 'final' and year_num > latest_final_year %}
+    {% assign latest_final_year = year_num %}
+  {% endif %}
+{% endfor %}
 {% assign supported_years = "" | split: "" %}
 {% assign final_count = 0 %}
 {% assign max_finals = site.supported_years_count %}
@@ -62,7 +70,7 @@ description: "VFX Reference Platform - Reference Platform for VFX Software"
   </div>
 
   <p class="mb-6 text-gray-600 dark:text-gray-300">
-    The Calendar Year {{ current_year }} (CY{{ current_year }}) Reference Platform is the target for all major software releases in {{ current_year }}.
+    The Calendar Year {{ latest_final_year }} (CY{{ latest_final_year }}) Reference Platform is the target for all major software releases in {{ latest_final_year }}.
   </p>
 
   {% include status-updates.html limit=4 style="cards" %}
@@ -130,7 +138,7 @@ description: "VFX Reference Platform - Reference Platform for VFX Software"
         <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Support Window</h3>
       </div>
       <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-        Providers of software libraries focused on VFX and animation content creation should aim to support their releases for the current calendar year and the three preceding years with compatible updates. Studios and end users should have no expectation of support for older libraries.
+        Providers of open source software libraries focused on VFX and animation content creation should aim to support their releases for the current calendar year and the three preceding years with compatible updates. Studios and end users should have no expectation of support for older libraries.
       </p>
     </div>
 

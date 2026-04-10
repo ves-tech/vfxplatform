@@ -30,5 +30,8 @@ npm-debug.log*
 *.tmp
 *.bak
 
+# Ignore Claude
+.claude
+
 # Archived reference
 v1-reference/
