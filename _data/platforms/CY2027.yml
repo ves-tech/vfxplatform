@@ -18,6 +18,7 @@ macos:
 windows:
   visual_studio:
     version: "Visual Studio build tools v14.44 or later"
+    note: footnote-msvc-buildtool-versions
   sdk:
     version: "10.0.22621 or later"
 
