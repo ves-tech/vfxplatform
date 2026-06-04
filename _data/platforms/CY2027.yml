@@ -1,6 +1,6 @@
 year: 2027
 status: draft
-last_updated: "2026-04-08"
+last_updated: "2026-06-03"
 
 linux:
   gcc:
@@ -17,7 +17,8 @@ macos:
 
 windows:
   visual_studio:
-    version: "Visual Studio 2022 v17.14 or later"
+    version: "Visual Studio build tools v14.44 or later"
+    note: footnote-msvc-buildtool-versions
   sdk:
     version: "10.0.22621 or later"
 
