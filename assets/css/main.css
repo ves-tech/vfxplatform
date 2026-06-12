@@ -415,6 +415,8 @@
 
   .note-popover-arrow {
     @apply absolute w-0 h-0;
+    /* JS sets `left` to the trigger center; anchor the triangle tip there */
+    transform: translateX(-50%);
   }
 
   .note-popover-arrow.arrow-top {
@@ -442,7 +444,10 @@
 
   /* Note bottom sheet (mobile) */
   .note-bottom-sheet {
-    @apply fixed bottom-0 left-0 right-0 z-50 rounded-t-2xl shadow-2xl p-5 pt-8 max-h-[70vh] overflow-y-auto;
+    @apply fixed bottom-0 left-0 right-0 z-50 rounded-t-2xl shadow-2xl p-5 pt-8 overflow-y-auto;
+    max-height: 70vh;
+    max-height: min(70dvh, calc(100dvh - 2rem));
+    padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
     background-color: rgb(var(--color-surface));
     transform: translateY(100%);
     transition: transform 0.25s ease-out;
