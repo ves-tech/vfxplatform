@@ -8,7 +8,7 @@
 
   if (!tableView || !cardView || !btnTable || !btnCards) return;
 
-  function setView(view) {
+  function setView(view, animate) {
     var isTable = view === 'table';
     tableView.classList.toggle('hidden', !isTable);
     cardView.classList.toggle('hidden', isTable);
@@ -16,14 +16,21 @@
     btnCards.classList.toggle('active', !isTable);
     btnTable.setAttribute('aria-pressed', isTable ? 'true' : 'false');
     btnCards.setAttribute('aria-pressed', isTable ? 'false' : 'true');
+    if (animate) {
+      var shown = isTable ? tableView : cardView;
+      shown.classList.add('view-fade-in');
+      shown.addEventListener('animationend', function() {
+        shown.classList.remove('view-fade-in');
+      }, { once: true });
+    }
     try { localStorage.setItem(STORAGE_KEY, view); } catch (e) {}
   }
 
-  btnTable.addEventListener('click', function() { setView('table'); });
-  btnCards.addEventListener('click', function() { setView('cards'); });
+  btnTable.addEventListener('click', function() { setView('table', true); });
+  btnCards.addEventListener('click', function() { setView('cards', true); });
 
-  // Initialize from saved preference (default: table)
+  // Initialize from saved preference (default: table), without animation
   var saved = 'table';
   try { saved = localStorage.getItem(STORAGE_KEY) || 'table'; } catch (e) {}
-  setView(saved);
+  setView(saved, false);
 })();
