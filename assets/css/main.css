@@ -107,7 +107,7 @@
     @apply px-4 py-3 text-center;
     border-bottom: 1px solid rgb(var(--color-border) / 0.5);
     border-right: 1px solid rgb(var(--color-border));
-    transition: background-color 0.1s ease;
+    transition: background-color 0.15s ease;
   }
 
   .platform-table td:last-child {
@@ -176,6 +176,29 @@
     position: relative;
   }
 
+  /* Thin themed scrollbar on horizontally scrollable tables */
+  .platform-table-wrapper .overflow-x-auto {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--color-border-strong)) transparent;
+  }
+
+  .platform-table-wrapper .overflow-x-auto::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .platform-table-wrapper .overflow-x-auto::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .platform-table-wrapper .overflow-x-auto::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--color-border-strong));
+    border-radius: 4px;
+  }
+
+  .platform-table-wrapper .overflow-x-auto::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--color-text-muted));
+  }
+
   /* Mobile scroll affordance — gradient fade on right edge hints at scrollable content */
   @media (max-width: 767px) {
     .platform-table-wrapper::after {
@@ -195,6 +218,39 @@
     /* Increase category header touch target on mobile */
     .platform-table .category-header td {
       @apply py-3;
+    }
+
+    /* Sticky first column keeps component names visible while scrolling */
+    .platform-table-sticky-col .platform-table th:first-child,
+    .platform-table-sticky-col .platform-table tr:not(.category-header) td:first-child {
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      box-shadow: 2px 0 4px rgb(0 0 0 / 0.04);
+    }
+
+    :is(.dark) .platform-table-sticky-col .platform-table th:first-child,
+    :is(.dark) .platform-table-sticky-col .platform-table tr:not(.category-header) td:first-child {
+      box-shadow: 2px 0 4px rgb(0 0 0 / 0.15);
+    }
+
+    .platform-table-sticky-col .platform-table th:first-child {
+      z-index: 2;
+    }
+
+    .platform-table-sticky-col .platform-table tr:not(.category-header) td:first-child {
+      background-color: rgb(var(--color-surface));
+    }
+
+    .platform-table-sticky-col .platform-table tr.row-alt td:first-child {
+      background-color: rgb(var(--color-surface-alt));
+    }
+
+    /* Category cells span the full table width, so pin their label instead */
+    .platform-table-sticky-col .category-label {
+      display: inline-block;
+      position: sticky;
+      left: 1rem;
     }
   }
 
@@ -359,6 +415,8 @@
 
   .note-popover-arrow {
     @apply absolute w-0 h-0;
+    /* JS sets `left` to the trigger center; anchor the triangle tip there */
+    transform: translateX(-50%);
   }
 
   .note-popover-arrow.arrow-top {
@@ -386,7 +444,10 @@
 
   /* Note bottom sheet (mobile) */
   .note-bottom-sheet {
-    @apply fixed bottom-0 left-0 right-0 z-50 rounded-t-2xl shadow-2xl p-5 pt-8 max-h-[70vh] overflow-y-auto;
+    @apply fixed bottom-0 left-0 right-0 z-50 rounded-t-2xl shadow-2xl p-5 pt-8 overflow-y-auto;
+    max-height: 70vh;
+    max-height: min(70dvh, calc(100dvh - 2rem));
+    padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
     background-color: rgb(var(--color-surface));
     transform: translateY(100%);
     transition: transform 0.25s ease-out;
@@ -445,11 +506,32 @@
     }
   }
 
+  /* Styled select with custom chevron (compare page) */
+  .select-control {
+    @apply appearance-none rounded-lg px-4 py-2.5 pr-8 bg-no-repeat transition-colors;
+    background-color: rgb(var(--color-surface-raised));
+    border: 1px solid rgb(var(--color-border-strong));
+    color: rgb(var(--color-text-heading));
+    background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%236b7280%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.168l3.71-3.938a.75.75%200%20111.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E');
+    background-size: 1.25rem 1.25rem;
+    background-position: right 0.5rem center;
+  }
+
   /* Info box */
   .info-box {
     background-color: rgb(var(--color-primary-subtle) / 0.5);
     border: 1px solid rgb(var(--color-primary-subtle));
     @apply rounded-lg p-5;
+  }
+
+  /* Gentle fade when switching between table and card views */
+  .view-fade-in {
+    animation: view-fade-in 0.15s var(--ease-out-quart);
+  }
+
+  @keyframes view-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   /* View toggle buttons */

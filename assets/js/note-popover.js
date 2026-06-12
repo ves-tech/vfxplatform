@@ -1,5 +1,6 @@
 (function () {
   let activePopover = null;
+  let activeTrigger = null;
 
   function closeActive() {
     if (!activePopover) return;
@@ -7,6 +8,10 @@
     activePopover = null;
     const backdrop = document.querySelector('.note-backdrop');
     if (backdrop) backdrop.remove();
+    if (activeTrigger && activeTrigger.isConnected) {
+      activeTrigger.focus();
+    }
+    activeTrigger = null;
   }
 
   function isMobile() {
@@ -30,6 +35,8 @@
 
     const sheet = document.createElement('div');
     sheet.className = 'note-bottom-sheet';
+    sheet.setAttribute('role', 'dialog');
+    sheet.setAttribute('aria-label', 'Note');
     sheet.appendChild(createCloseBtn());
     sheet.appendChild(content);
     document.body.appendChild(sheet);
@@ -45,6 +52,8 @@
   function showPopover(content, trigger) {
     const popover = document.createElement('div');
     popover.className = 'note-popover';
+    popover.setAttribute('role', 'dialog');
+    popover.setAttribute('aria-label', 'Note');
     popover.appendChild(createCloseBtn());
     popover.appendChild(content);
 
@@ -81,9 +90,9 @@
     popover.style.top = top + 'px';
     popover.style.left = left + 'px';
 
-    // Position arrow to point at trigger center
+    // Position arrow tip at trigger center (CSS translateX(-50%) anchors the tip)
     let arrowLeft = rect.left + scrollX + rect.width / 2 - left;
-    arrowLeft = Math.max(16, Math.min(arrowLeft, popRect.width - 16));
+    arrowLeft = Math.max(14, Math.min(arrowLeft, popRect.width - 14));
     arrow.style.left = arrowLeft + 'px';
   }
 
@@ -105,6 +114,9 @@
       } else {
         showPopover(wrapper, link);
       }
+      activeTrigger = link;
+      const closeBtn = activePopover.querySelector('.note-close-btn');
+      if (closeBtn) closeBtn.focus({ preventScroll: true });
       return;
     }
 
@@ -117,4 +129,8 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeActive();
   });
+
+  // Stale positioning after resize/rotation; closing also handles the
+  // popover/bottom-sheet mode flip across the 768px breakpoint
+  window.addEventListener('resize', closeActive);
 })();
