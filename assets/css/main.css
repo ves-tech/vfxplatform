@@ -107,7 +107,7 @@
     @apply px-4 py-3 text-center;
     border-bottom: 1px solid rgb(var(--color-border) / 0.5);
     border-right: 1px solid rgb(var(--color-border));
-    transition: background-color 0.1s ease;
+    transition: background-color 0.15s ease;
   }
 
   .platform-table td:last-child {
@@ -176,6 +176,29 @@
     position: relative;
   }
 
+  /* Thin themed scrollbar on horizontally scrollable tables */
+  .platform-table-wrapper .overflow-x-auto {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--color-border-strong)) transparent;
+  }
+
+  .platform-table-wrapper .overflow-x-auto::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .platform-table-wrapper .overflow-x-auto::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .platform-table-wrapper .overflow-x-auto::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--color-border-strong));
+    border-radius: 4px;
+  }
+
+  .platform-table-wrapper .overflow-x-auto::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--color-text-muted));
+  }
+
   /* Mobile scroll affordance — gradient fade on right edge hints at scrollable content */
   @media (max-width: 767px) {
     .platform-table-wrapper::after {
@@ -195,6 +218,39 @@
     /* Increase category header touch target on mobile */
     .platform-table .category-header td {
       @apply py-3;
+    }
+
+    /* Sticky first column keeps component names visible while scrolling */
+    .platform-table-sticky-col .platform-table th:first-child,
+    .platform-table-sticky-col .platform-table tr:not(.category-header) td:first-child {
+      position: sticky;
+      left: 0;
+      z-index: 1;
+      box-shadow: 2px 0 4px rgb(0 0 0 / 0.04);
+    }
+
+    :is(.dark) .platform-table-sticky-col .platform-table th:first-child,
+    :is(.dark) .platform-table-sticky-col .platform-table tr:not(.category-header) td:first-child {
+      box-shadow: 2px 0 4px rgb(0 0 0 / 0.15);
+    }
+
+    .platform-table-sticky-col .platform-table th:first-child {
+      z-index: 2;
+    }
+
+    .platform-table-sticky-col .platform-table tr:not(.category-header) td:first-child {
+      background-color: rgb(var(--color-surface));
+    }
+
+    .platform-table-sticky-col .platform-table tr.row-alt td:first-child {
+      background-color: rgb(var(--color-surface-alt));
+    }
+
+    /* Category cells span the full table width, so pin their label instead */
+    .platform-table-sticky-col .category-label {
+      display: inline-block;
+      position: sticky;
+      left: 1rem;
     }
   }
 
