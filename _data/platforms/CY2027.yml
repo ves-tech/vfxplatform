@@ -12,7 +12,7 @@ linux:
 
 macos:
   deployment_target:
-    version: "15.0"
+    version: "14.0"
     note: footnote-macos
 
 windows:

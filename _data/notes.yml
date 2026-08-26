@@ -27,6 +27,10 @@ notes:
 
       Building Qt against C++17 requires a minimum macOS version of 10.14 otherwise Qt fails during configuration. If 10.13 support is needed then a known workaround is to build Qt against C++14.
 
+      **UPDATE: August 2026 - Qt 6.8 on macOS**
+
+      Qt 6.8 source code sets a limit for the minimum macOS version to 14, since it uses APIs that were removed in 15. Until a future Qt version unblocks this, the minimum macOS version has been held.
+
   - id: footnote-gcc9
     title: "Note - gcc 9 and 11"
     from_year: 2021
