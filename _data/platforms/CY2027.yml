@@ -1,6 +1,6 @@
 year: 2027
-status: draft
-last_updated: "2026-06-03"
+status: final
+last_updated: "2026-08-30"
 
 linux:
   gcc:
@@ -37,18 +37,22 @@ components:
     version: "3.2.x"
   openexr:
     version: "3.5.x"
+    inline_note: "Release expected by Oct 1st"
   ptex:
     version: "2.5.x"
   opensubdiv:
     version: "3.8.x"
+    inline_note: "Release expected by Oct 1st"
   openvdb:
     version: "14.x"
+    inline_note: "Release expected by Nov 1st"
   alembic:
     version: "1.8.x"
   fbx:
     version: "2020.2 - 2020.latest"
   opencolorio:
     version: "2.6.x"
+    inline_note: "Release expected by Oct 1st"
   aces:
     version: "2.0"
   boost:
