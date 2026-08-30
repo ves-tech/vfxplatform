@@ -1,4 +1,9 @@
 updates:
+  - date: "2026-08-30"
+    display_date: "30th August 2026"
+    content: |
+      CY2027 is now Final and will be effective from January 1st.  Confirmation of versions for OpenColorIO, Opensubdiv, and OpenEXR will follow by early October, and OpenVDB by early November pending the timely release of new versions. As always, if any major issues are discovered with CY2027 then they will be shared with the community to decide whether a late change is required. 
+
   - date: "2026-04-10"
     display_date: "10th April 2026"
     content: |
