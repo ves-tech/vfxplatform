@@ -36,7 +36,7 @@ bundle exec jekyll serve --livereload
 
 ```
 _data/
-├── platforms/CY20XX.yml  # Version specs per year (CY2014-CY2026)
+├── platforms/CY20XX.yml  # Version specs per year (CY2014-CY2027)
 ├── components.yml        # Component metadata and categories
 ├── faq.yml              # FAQ Q&A content
 ├── footer.yml           # Footer content (description, resources, contact)
@@ -47,7 +47,7 @@ _data/
 ```
 
 **Key config in `_config.yml`:**
-- `current_year: 2026` - Active platform year
+- `current_year: 2027` - Active platform year
 - `supported_years_count: 4` - Total number of years shown in tables, except on pages where all platform history is shown.
 
 **Layouts:**
