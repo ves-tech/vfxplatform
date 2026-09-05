@@ -30,8 +30,9 @@ npm-debug.log*
 *.tmp
 *.bak
 
-# Ignore Claude
+# Ignore Code Assist tools
 .claude
+.codex
 
 # Archived reference
 v1-reference/
