@@ -94,6 +94,8 @@ _data/
 
 **Interactive features:** The platform table supports collapsible category sections — users can click any category header (Linux, macOS, Windows, Components) to collapse/expand its rows. Collapsed state is remembered across visits via localStorage.
 
+**Version change markers:** A yellow dot beside a version in the homepage and history tables means it differs from the previous calendar year's version, even when that earlier year is outside the displayed range. A legend above each table explains the marker. Markers are calculated automatically from the platform data; no manual formatting is needed.
+
 ---
 
 ## Common Tasks
