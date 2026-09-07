@@ -5,6 +5,11 @@
 
 {% assign col_count = include.years | size | plus: 1 %}
 
+<p class="flex items-center gap-2 mb-3 text-sm text-gray-600 dark:text-gray-300">
+  <span class="version-change-marker" aria-hidden="true"></span>
+  Version differs from the previous calendar year
+</p>
+
 <div class="platform-table-wrapper{% if include.compact %} platform-table-compact{% else %} platform-table-sticky-col{% endif %}{% if include.scrollbar_top %} platform-table-scrollbar-top{% endif %}">
   <div class="overflow-x-auto">
     <table class="platform-table">
@@ -81,9 +86,9 @@
                   {% endif %}
                 {% endif %}
 
-                <td class="text-sm{% if version_changed %} version-changed{% endif %}">
+                <td class="text-sm">
                   {% if item_data and item_data.version %}
-                    <span class="font-mono">{{ item_data.version }}</span>
+                    <span class="version-value font-mono">{{ item_data.version }}{% if version_changed %}<span class="version-change-marker" aria-hidden="true"></span><span class="sr-only"> (differs from the previous calendar year)</span>{% endif %}</span>
                     {% if item_data.inline_note %}
                       <br><small class="text-gray-500 dark:text-gray-400">({{ item_data.inline_note }})</small>
                     {% endif %}
@@ -102,4 +107,3 @@
     </table>
   </div>
 </div>
-
