@@ -53,8 +53,8 @@ For most content updates:
 If you want to preview changes before pushing, you can run the site locally.
 
 **Prerequisites:**
-- Node.js (v18 or later)
-- Ruby (v3.0 or later)
+- Node.js (v24 LTS recommended; matches the deploy workflows)
+- Ruby (v3.4 recommended; matches the deploy workflows)
 
 **Installation:**
 ```bash
