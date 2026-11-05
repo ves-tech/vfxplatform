@@ -1,6 +1,6 @@
 updates:
   - date: "2026-11-01"
-    display_date: "1st Novemeber 2026"
+    display_date: "1st November 2026"
     content: |
       OpenEXR, OpenColorIO, OpenSubdiv and OpenVDB have released their CY2027 versions, the 2027 plaform is now feature complete.
 
