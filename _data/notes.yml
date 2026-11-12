@@ -111,6 +111,6 @@ notes:
     content: |
       There are many different version numbers that Microsoft use in the VisualStudio ecosystem. Build tool versions can be found [here](https://learn.microsoft.com/en-us/cpp/overview/compiler-versions?view=msvc-180#version-macros).
 
-      14.44 is the latest VS2022 build tools, supported until January 2032. VS2026 build tools start from 14.50. VisualStudio products can generally install current and older build tool versions side-by-side.
+      14.44 is the latest VS2022 Build Tools, supported until January 2032. VS2026 Build Tools start from 14.50. VisualStudio products can generally install current and older build tool versions side-by-side.
 
       We will lean on Microsoft's [binary compatibility guarantee](https://learn.microsoft.com/en-us/cpp/porting/binary-compat-2015-2017?view=msvc-180).
