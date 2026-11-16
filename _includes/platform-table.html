@@ -1,6 +1,8 @@
 {% comment %}
   Platform table include
   Usage: {% include platform-table.html years=supported_years show_history_link=true %}
+  Pass year_anchors=true to give each year column header an id of "CY20XX"
+  so links like platform_history.html#CY2023 land on that column.
 {% endcomment %}
 
 {% assign col_count = include.years | size | plus: 1 %}
@@ -19,7 +21,7 @@
           {% for year in include.years %}
           {% assign year_key = "CY" | append: year %}
           {% assign year_data = site.data.platforms[year_key] %}
-          <th scope="col">
+          <th scope="col"{% if include.year_anchors %} id="CY{{ year }}"{% endif %}>
             CY{{ year }}
             {% if year_data.status != 'final' %}
               <span class="draft-badge">DRAFT</span>

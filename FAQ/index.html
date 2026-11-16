@@ -15,7 +15,7 @@ description: "VFX Reference Platform - Frequently Asked Questions"
       "name": {{ item.question | jsonify }},
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": {{ item.answer | strip_html | strip_newlines | jsonify }}
+        "text": {{ item.answer | markdownify | strip_html | normalize_whitespace | strip | jsonify }}
       }
     }{% unless forloop.last %},{% endunless %}
     {% endfor %}

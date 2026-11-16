@@ -99,6 +99,16 @@
     border-right: none;
   }
 
+  /* Year anchors (#CY2023): clear the sticky nav and mark the linked column */
+  .platform-table th[id],
+  .year-card {
+    scroll-margin-top: 5rem;
+  }
+
+  .platform-table th:target {
+    @apply bg-blue-800 dark:bg-blue-950;
+  }
+
   .platform-table th:first-child {
     @apply text-left;
   }
