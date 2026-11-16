@@ -60,6 +60,8 @@
   function findDifferences(year1, year2) {
     const data1 = platformData[year1];
     const data2 = platformData[year2];
+    // Keys are "CY20XX", so string comparison orders them chronologically
+    const year1IsNewer = year1 > year2;
     const diffs = [];
 
     componentMeta.categories.forEach(function(category) {
@@ -74,7 +76,7 @@
           componentId: item.id,
           value1: val1 || '\u2014',
           value2: val2 || '\u2014',
-          type: getDiffType(val1, val2)
+          type: year1IsNewer ? getDiffType(val2, val1) : getDiffType(val1, val2)
         });
       });
     });
@@ -82,13 +84,13 @@
     return diffs;
   }
 
-  // Determine diff type
-  // val1 is from year1 (newer), val2 is from year2 (older)
-  function getDiffType(val1, val2) {
-    if (!val1 && !val2) return 'unchanged';  // Both empty
-    if (!val1) return 'removed';  // Missing in newer year = removed
-    if (!val2) return 'added';    // Missing in older year = added
-    if (val1 === val2) return 'unchanged';   // Same value
+  // Determine diff type going from the older year to the newer year,
+  // regardless of which order the years were selected in
+  function getDiffType(olderVal, newerVal) {
+    if (!olderVal && !newerVal) return 'unchanged';  // Both empty
+    if (!newerVal) return 'removed';  // Missing in newer year = removed
+    if (!olderVal) return 'added';    // Missing in older year = added
+    if (olderVal === newerVal) return 'unchanged';   // Same value
     return 'changed';
   }
 

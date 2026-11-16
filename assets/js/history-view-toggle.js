@@ -26,11 +26,24 @@
     try { localStorage.setItem(STORAGE_KEY, view); } catch (e) {}
   }
 
+  // Year anchors (#CY2023) live on the table column headers. When the card
+  // view is showing, the browser can't scroll to them, so scroll to the
+  // matching card instead.
+  function scrollToYearCard(instant) {
+    if (cardView.classList.contains('hidden')) return;
+    var match = /^#(CY\d{4})$/.exec(window.location.hash);
+    if (!match) return;
+    var card = document.getElementById(match[1] + '-card');
+    if (card) card.scrollIntoView(instant ? { behavior: 'instant' } : undefined);
+  }
+
   btnTable.addEventListener('click', function() { setView('table', true); });
   btnCards.addEventListener('click', function() { setView('cards', true); });
+  window.addEventListener('hashchange', function() { scrollToYearCard(false); });
 
   // Initialize from saved preference (default: table), without animation
   var saved = 'table';
   try { saved = localStorage.getItem(STORAGE_KEY) || 'table'; } catch (e) {}
   setView(saved, false);
+  scrollToYearCard(true);
 })();

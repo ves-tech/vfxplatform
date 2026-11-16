@@ -23,6 +23,8 @@ exclude:
   - tailwind.config.js
   - postcss.config.js
   - README.md
+  - CLAUDE.md
+  - AGENTS.md
   - .github
 
 # Data directory
@@ -37,9 +39,11 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
 
-# SEO
+# SEO (used by jekyll-seo-tag)
 author:
   name: VFX Reference Platform Working Group
+  type: Organization
+logo: /assets/images/favicon.ico/web-app-manifest-512x512.png
 
 # Hero section
 hero:
@@ -58,3 +62,4 @@ defaults:
       path: ""
     values:
       layout: "default"
+      image: /assets/images/favicon.ico/web-app-manifest-512x512.png
